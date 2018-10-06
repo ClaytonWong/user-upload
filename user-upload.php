@@ -14,19 +14,15 @@
     while ($record = fgetcsv($f)) { // Loop through csv file 1 record at a time
       foreach ($record as $field)   {  // Loop through fields in current record
         if ($headers_read === 3 )      {   // If you have read the headers name, surname & email
-          //$field = strtolower($field);       // then make fieldstring lowercase
-          $field = strtolower( trim($field) );
-
+          $field = strtolower( trim($field) );// then remove spaces from fieldstring and make it lowercase
+          
           if ($field_no < 3) {               // If field is firstname or lastname
             $field = ucwords($field);           // then capitalize it
             $field_no = $field_no + 1;          // and look at next field
           }
           else {                             // Else must be at email
-            //if (!filter_var($field, FILTER_VALIDATE_EMAIL)) {
-            //if (!filter_var(trim($field), FILTER_VALIDATE_EMAIL)) { // Check for invalid email address
-            if ( !validate_email($field) ) {
-            //if ( !validate_email( trim($field) ) ) {
-                echo "INVALID EMAIL ADDRESS GIVEN!\n";
+            if ( !validate_email($field) ) {    // Check for invalid email address
+              echo "INVALID EMAIL ADDRESS GIVEN!\n";
             }
             $field_no = 1;                     // so look at first field from next record   
           }
