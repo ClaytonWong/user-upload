@@ -14,3 +14,7 @@ Other sites and help used:
 * https://stackoverflow.com/questions/13447539/php-preg-match-with-email-validation-issue
 
   To find out how to validate emails properly, especially the 'phil@open.edu.au' 'not valid' problem
+
+* https://www.techrepublic.com/blog/how-do-i/how-do-i-use-php-with-postgresql/
+
+  To find out how to work with Posgresql databases in PHP
