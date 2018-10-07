@@ -4,6 +4,11 @@
     return preg_match($pattern, $email);
   }
 
+  function validate_name($name) {
+    $pattern = "/^([a-z']+)$/";
+    return preg_match($pattern, $name);
+  }
+
   $file = "users.csv";
   
   if (file_exists($file)) { // Check the existence of file
@@ -17,6 +22,10 @@
           $field = strtolower( trim($field) );// then remove spaces from fieldstring and make it lowercase
           
           if ($field_no < 3) {               // If field is firstname or lastname
+            if (!validate_name($field)) {       // check if valid name or surname
+              echo "INVALID NAME OR SURNAME GIVEN!\n";
+            }
+            
             $field = ucwords($field);           // then capitalize it
             $field_no = $field_no + 1;          // and look at next field
           }
@@ -27,6 +36,10 @@
             $field_no = 1;                     // so look at first field from next record   
           }
           echo $field . "\n";                // Print each field
+
+          if($field_no === 1) { // If you just printed an email
+            echo "\n";             // print an extra blank line to separate records
+          }
         }
         else {                            // else read in "Headers" name, surname & email
           $headers_read = $headers_read + 1;
