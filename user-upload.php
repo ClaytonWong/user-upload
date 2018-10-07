@@ -10,7 +10,16 @@
   }
 
   $file = "users.csv";
-  
+    
+  $dbh = pg_connect("host=localhost dbname=test user=root password=root"); // attempt a connection to database
+
+  if (!$dbh) {
+    die("Error in database connection: " . pg_last_error());
+  }
+  else {
+    echo "Connection to database opened & ok.\n";
+  }
+
   if (file_exists($file)) { // Check the existence of file
     $f = fopen($file, "r") or die ("ERROR: Cannot open the file."); // Open file for reading or give error message if you can't open file
     $headers_read = 0;
@@ -46,7 +55,10 @@
         }
       }
     }
-    fclose($f);
+    fclose($f); // Close input csv file
+
+    pg_close($dbh);  // close connection to database
+    echo "Connection to database closed\n";
   }
   else {
     echo "ERROR: File does not exist.";
