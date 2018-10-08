@@ -20,3 +20,7 @@ Resources used:
 * http://forums.devshed.com/postgresql-help-21/creating-table-postgresql-using-php-19274.html
 
   To find out how to create postgresql tables
+
+* https://www.w3schools.com/PHP/func_misc_die.asp
+
+  To find out about 'die' function in PHP
