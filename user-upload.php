@@ -18,6 +18,15 @@
   }
   else {
     echo "Connection to database opened & ok.\n";
+
+    // Create database table called users
+    $sql = "CREATE TABLE IF NOT EXISTS users ( 
+      id serial PRIMARY KEY,
+      name text NOT NULL,
+      surname text NOT NULL,
+      email text NOT NULL UNIQUE 
+    )";
+    pg_exec($dbh, $sql) or die(pg_errormessage());
   }
 
   if (file_exists($file)) { // Check the existence of file
@@ -56,6 +65,10 @@
       }
     }
     fclose($f); // Close input csv file
+
+    // Drop database table called users
+    $sql = "DROP TABLE users";
+    pg_exec($dbh, $sql) or die(pg_errormessage());
 
     pg_close($dbh);  // close connection to database
     echo "Connection to database closed\n";
