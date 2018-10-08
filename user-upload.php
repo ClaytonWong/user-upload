@@ -5,7 +5,7 @@
   }
 
   function validate_name($name) {
-    $pattern = "/^([a-z']+)$/";
+    $pattern = "/^([a-zA-Z']+)$/";
     return preg_match($pattern, $name);
   }
 
@@ -32,30 +32,63 @@
   if (file_exists($file)) { // Check the existence of file
     $f = fopen($file, "r") or die ("ERROR: Cannot open the file."); // Open file for reading or give error message if you can't open file
     $headers_read = 0;
-    $field_no = 1; 
+    $field_no = 1;
+    $name = "";
+    $surname = "";
+    $email = "";
+    $name_valid = false;
+    $surname_valid = false;
+    $email_valid = false;
 
     while ($record = fgetcsv($f)) { // Loop through csv file 1 record at a time
       foreach ($record as $field)   {  // Loop through fields in current record
         if ($headers_read === 3 )      {   // If you have read the headers name, surname & email
           $field = strtolower( trim($field) );// then remove spaces from fieldstring and make it lowercase
           
-          if ($field_no < 3) {               // If field is firstname or lastname
-            if (!validate_name($field)) {       // check if valid name or surname
-              echo "INVALID NAME OR SURNAME GIVEN!\n";
+          if ($field_no < 3) {               // If field is name or surname
+            $field = ucwords($field);           // then capitalize it
+
+            if ($field_no === 1) {              // If field is name
+              if (!validate_name($field)) {        // check if name is invalid
+                $name_valid = false;
+                echo "INVALID NAME GIVEN!\n";
+              }
+              else {                               // Else name is valid
+                $name_valid = true;
+                $name = $field;                      // so store it in $name 
+              }
+            }
+            else {                              // Else field is surname
+              if (!validate_name($field)) {       // check if surname is invalid
+                $surname_valid = false;
+                echo "INVALID SURNAME GIVEN!\n";
+              }
+              else {                               // Else surname is valid
+                $surname_valid = true;
+                $surname = $field;                      // so store it in $surname 
+              }
             }
             
-            $field = ucwords($field);           // then capitalize it
             $field_no = $field_no + 1;          // and look at next field
           }
           else {                             // Else must be at email
             if ( !validate_email($field) ) {    // Check for invalid email address
+              $email_valid = false;
               echo "INVALID EMAIL ADDRESS GIVEN!\n";
             }
-            $field_no = 1;                     // so look at first field from next record   
+            else {                               // Else email is valid
+              $email_valid = true;
+              $email = $field;                      // so store it in $email 
+            }
+            $field_no = 1;                     // look at first field from next record   
           }
           echo $field . "\n";                // Print each field
 
           if($field_no === 1) { // If you just printed an email
+            if ($name_valid && $surname_valid && $email_valid) {
+              echo "Name, surname, & email are valid\n";
+            }
+
             echo "\n";             // print an extra blank line to separate records
           }
         }
