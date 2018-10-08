@@ -24,3 +24,8 @@ Resources used:
 * https://www.w3schools.com/PHP/func_misc_die.asp
 
   To find out about 'die' function in PHP
+
+* https://secure.php.net/manual/en/function.getopt.php
+* https://www.sitepoint.com/php-command-line-1-3/
+
+  To find out about script commandline directives
