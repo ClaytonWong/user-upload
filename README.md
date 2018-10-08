@@ -1,4 +1,4 @@
-Tutorials used:
+Resources used:
 
 * https://www.sitepoint.com/working-with-files-in-php/
 
@@ -8,8 +8,6 @@ Tutorials used:
 
   To find out how to change strings to lower case and capitalize.
 
-Other sites and help used:
-
 * http://fr.php.net/manual/en/function.filter-var.php
 * https://stackoverflow.com/questions/13447539/php-preg-match-with-email-validation-issue
 
@@ -18,3 +16,7 @@ Other sites and help used:
 * https://www.techrepublic.com/blog/how-do-i/how-do-i-use-php-with-postgresql/
 
   To find out how to work with Posgresql databases in PHP
+
+* http://forums.devshed.com/postgresql-help-21/creating-table-postgresql-using-php-19274.html
+
+  To find out how to create postgresql tables
