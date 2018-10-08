@@ -18,6 +18,7 @@
   }
   else {
     echo "Connection to database opened & ok.\n";
+    echo "\n";
 
     // Create database table called users
     $sql = "CREATE TABLE IF NOT EXISTS users ( 
@@ -87,6 +88,30 @@
           if($field_no === 1) { // If you just printed an email
             if ($name_valid && $surname_valid && $email_valid) {
               echo "Name, surname, & email are valid\n";
+
+              // Since name, surname & email are valid,
+              // you can insert them into the database
+
+              // Escape strings in input data
+              $name    = pg_escape_string($name);
+              $surname = pg_escape_string($surname);
+              $email   = pg_escape_string($email);
+
+              // Execute query
+              $sql    = "INSERT INTO users (name, surname, email) VALUES('$name', '$surname', '$email')";
+              $result = pg_query($dbh, $sql);
+
+              if (!$result) {
+                echo "\n";
+                echo "Error in SQL insert query: " . pg_last_error();
+                echo "\n";
+              }
+              else {
+                echo "Data successfully inserted!\n";
+              }
+                           
+              // Free memory
+              pg_free_result($result);
             }
 
             echo "\n";             // print an extra blank line to separate records
@@ -99,10 +124,36 @@
     }
     fclose($f); // Close input csv file
 
+    // Check if you can read from database before dropping it
+    // execute query
+    $sql    = "SELECT * FROM users";
+    $result = pg_query($dbh, $sql);
+
+    if (!$result) {
+      die("Error in SQL retrieve query: " . pg_last_error());
+    }
+    else {
+      echo "Reading entries from database table:\n";
+    }
+
+    // Iterate over result set
+    // print each row
+    while ($row = pg_fetch_array($result)) {
+      echo "ID: " . $row[0] . "\n";
+      echo "NAME: " . $row[1] . "\n";
+      echo "SURNAME: " . $row[2] . "\n";
+      echo "EMAIL: " . $row[3] . "\n";
+      echo "\n";
+    }
+
+    // Free memory
+    pg_free_result($result);
+
     // Drop database table called users
+    echo "Attempting to drop database table...\n";
     $sql = "DROP TABLE users";
     pg_exec($dbh, $sql) or die(pg_errormessage());
-
+    
     pg_close($dbh);  // close connection to database
     echo "Connection to database closed\n";
   }
