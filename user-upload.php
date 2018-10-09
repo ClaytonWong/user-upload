@@ -41,17 +41,19 @@
   */
 
   $username = "root"; // Default username is root
+  //$username = ""; // No default username
   if ( !empty( $options['u'] ) ) { // If different username given
     $username = $options['u'];        // use that instead of the default
   }
   echo "username = " . $username ."\n"; 
-/*
-  $password = ""; // Default   is 
-  if ( !empty( $options[''] ) ) { // If different   given
-    $ = $options[''];           // use that instead of the default
-  }
-  //echo " = " . $ ."\n"; 
 
+  $password = "root"; // Default password is root
+  //$password = ""; // No default password
+  if ( !empty( $options['p'] ) ) { // If different password given
+    $password = $options['p'];                // use that instead of the default
+  }
+  echo "password = " . $password ."\n"; 
+/*
   $host = ""; // Default   is 
   if ( !empty( $options[''] ) ) { // If different   given
     $ = $options[''];           // use that instead of the default
@@ -59,7 +61,7 @@
   //echo " = " . $ ."\n"; 
 */
   //$dbh = pg_connect("host=localhost dbname=test user=root password=root"); // attempt a connection to database
-  $connect_vars = "host=localhost dbname=test user=" . $username . " password=root";
+  $connect_vars = "host=localhost dbname=test user=" . $username . " password=" . $password;
   
   $dbh = pg_connect($connect_vars); // attempt a connection to database
 
