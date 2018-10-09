@@ -5,7 +5,7 @@
   $shortopts .= "abc"; // These options do not accept values
 
   $longopts  = array(
-    "file:",     // Required value
+    "file:",     // For handling --file commandline directives
     //"file::",    // Optional value
     //"option",        // No value
     //"opt",           // No value
@@ -23,11 +23,11 @@
     return preg_match($pattern, $name);
   }
 
-  $file = "users.csv";
-  if ( !empty($options["file"]) ) {
-    $file = $options["file"];
+  $file = "users.csv"; // Default csv file is users.csv
+  if ( !empty($options["file"]) ) { // If different csv file given
+    $file = $options["file"];          // use that instead of the default
   }
-  echo "file = " . $file ."\n";
+  echo "file = " . $file ."\n";     // Show csv file to be used
 
   $dbh = pg_connect("host=localhost dbname=test user=root password=root"); // attempt a connection to database
 
