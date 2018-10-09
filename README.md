@@ -11,7 +11,7 @@ table, output the contents then drop the table.
 The csv file has a header followed by the records. The fields are
 in the following order: name, surname then email.
 
-### requirements ###
+### Requirements ###
 The program will only insert a record if the fields fufil the following
 requirements:
 
