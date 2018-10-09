@@ -10,13 +10,12 @@
   }
 
   $shortopts  = "";
-  //$shortopts .= "f:";  // Required value
-  $shortopts .= "v::"; // Optional value
-  $shortopts .= "abc"; // These options do not accept values
-
+  $shortopts .= "u:";  // For handling -u postgreSQL directive
+  $shortopts .= "p:";  // For handling -p postgreSQL directive
+  $shortopts .= "h:";  // For handling -h postgreSQL directive
+  
   $longopts  = array(
     "file:",        // For handling --file commandline directives
-    //"file::",    // Optional value
     "create_table", // For handling --create_table commandline directives
     "dry_run",      // For handling --dry_run commandline directives
   );
@@ -27,7 +26,7 @@
   if ( !empty( $options['file'] ) ) { // If different csv file given
     $file = $options['file'];           // use that instead of the default
   }
-  echo "file = " . $file ."\n";       // Show csv file to be used
+  //echo "file = " . $file ."\n";       // Show csv file to be used
 
   // Code to prevent the error "PHP Notice:  Undefined index: create_table"
   // DOES NOT WORK
@@ -41,7 +40,28 @@
   }
   */
 
-  $dbh = pg_connect("host=localhost dbname=test user=root password=root"); // attempt a connection to database
+  $username = "root"; // Default username is root
+  if ( !empty( $options['u'] ) ) { // If different username given
+    $username = $options['u'];        // use that instead of the default
+  }
+  echo "username = " . $username ."\n"; 
+/*
+  $password = ""; // Default   is 
+  if ( !empty( $options[''] ) ) { // If different   given
+    $ = $options[''];           // use that instead of the default
+  }
+  //echo " = " . $ ."\n"; 
+
+  $host = ""; // Default   is 
+  if ( !empty( $options[''] ) ) { // If different   given
+    $ = $options[''];           // use that instead of the default
+  }
+  //echo " = " . $ ."\n"; 
+*/
+  //$dbh = pg_connect("host=localhost dbname=test user=root password=root"); // attempt a connection to database
+  $connect_vars = "host=localhost dbname=test user=" . $username . " password=root";
+  
+  $dbh = pg_connect($connect_vars); // attempt a connection to database
 
   if (!$dbh) {
     die("Error in database connection: " . pg_last_error());
