@@ -1,21 +1,18 @@
 <?php
-  // Include PEAR::Console_Getopt
-  require_once 'Console/Getopt.php';
-
   $shortopts  = "";
-  $shortopts .= "f:";  // Required value
+  //$shortopts .= "f:";  // Required value
   $shortopts .= "v::"; // Optional value
   $shortopts .= "abc"; // These options do not accept values
 
   $longopts  = array(
-    "required:",     // Required value
-    "optional::",    // Optional value
-    "option",        // No value
-    "opt",           // No value
+    "file:",     // Required value
+    //"file::",    // Optional value
+    //"option",        // No value
+    //"opt",           // No value
   );
   $options = getopt($shortopts, $longopts);
-  var_dump($options);
-
+  //var_dump($options);
+  
   function validate_email($email) {
     $pattern = "/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,})$/i";
     return preg_match($pattern, $email);
@@ -27,7 +24,11 @@
   }
 
   $file = "users.csv";
-    
+  if ( !empty($options["file"]) ) {
+    $file = $options["file"];
+  }
+  echo "file = " . $file ."\n";
+
   $dbh = pg_connect("host=localhost dbname=test user=root password=root"); // attempt a connection to database
 
   if (!$dbh) {
