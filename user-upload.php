@@ -61,7 +61,8 @@
   }
   //echo "host = " . $host ."\n"; 
 
-  if ($options['help'] === false) {// --help given at command line
+  //if ($options['help'] === false) {// --help given at command line
+  if ( isset( $options['help'] ) ) {// --help given at command line
     // So display help messages
     echo 
     "The following directives can used with user-upload.php\n
@@ -108,7 +109,9 @@
       //if ($options['create_table'] !== NULL) { // If --create_table directive given
       //if (!empty( $options['create_table']) ) { // If --create_table directive given
       //if ($create_table_and_more === false) {
-      if ($options['create_table'] === false) { // If --create_table directive given
+      
+      //if ($options['create_table'] === false) { // If --create_table directive given
+      if ( isset( $options['create_table'] ) ) { // If --create_table directive given
         echo "Created table only\n";
       }
       else {
@@ -173,7 +176,8 @@
                   if ($name_valid && $surname_valid && $email_valid) {
                     echo "Name, surname, & email are valid\n";
                     
-                    if ($options['dry_run'] === false) {     // dry_run directive given
+                    //if ($options['dry_run'] === false) {     // dry_run directive given
+                    if ( isset( $options['dry_run'] ) ) {    // dry_run directive given
                       echo "Dry run for database insert\n";
                     }
                     else {                                   // It's not a dry run
@@ -213,7 +217,8 @@
           }
           fclose($f);                       // Close input csv file
       
-          if ($options['dry_run'] === NULL) {
+          //if ($options['dry_run'] === NULL) {
+          if ( !isset( $options['dry_run'] ) ) {
             // If not a dry run
             // Check if you can read from database before dropping it
             // execute query
