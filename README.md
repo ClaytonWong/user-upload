@@ -81,3 +81,9 @@ Catalyst IT in Melbourne Australia around early October 2018.
 * https://www.sitepoint.com/php-command-line-1-3/
 
   To find out about script commandline directives
+
+* https://stackoverflow.com/questions/14097897/how-to-fix-notice-undefined-index-in-php-form-action
+* https://secure.php.net/manual/en/function.isset.php
+* https://stackoverflow.com/questions/40288959/getopt-return-php-notice-undefined-index
+
+  To find out how to fix 'Notice: Undefined index:' problem
