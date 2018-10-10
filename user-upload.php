@@ -29,18 +29,6 @@
   }
   //echo "file = " . $file ."\n";       // Show csv file to be used
 
-  // Code to prevent the error "PHP Notice:  Undefined index: create_table"
-  // DOES NOT WORK
-  /*
-  $create_table_and_more = true;
-  if ( $options['create_table'] === false ) {
-    $create_table_and_more = false;
-  }
-  else if ( $options['create_table'] === NULL ){
-    $create_table_and_more = true;
-  }
-  */
-
   $username = "root"; // Default username is root
   //$username = ""; // No default username
   if ( !empty( $options['u'] ) ) { // If different username given
@@ -61,7 +49,6 @@
   }
   //echo "host = " . $host ."\n"; 
 
-  //if ($options['help'] === false) {// --help given at command line
   if ( isset( $options['help'] ) ) {// --help given at command line
     // So display help messages
     echo 
@@ -106,11 +93,6 @@
       )";
       pg_exec($dbh, $sql) or die(pg_errormessage());
 
-      //if ($options['create_table'] !== NULL) { // If --create_table directive given
-      //if (!empty( $options['create_table']) ) { // If --create_table directive given
-      //if ($create_table_and_more === false) {
-      
-      //if ($options['create_table'] === false) { // If --create_table directive given
       if ( isset( $options['create_table'] ) ) { // If --create_table directive given
         echo "Created table only\n";
       }
@@ -176,7 +158,6 @@
                   if ($name_valid && $surname_valid && $email_valid) {
                     echo "Name, surname, & email are valid\n";
                     
-                    //if ($options['dry_run'] === false) {     // dry_run directive given
                     if ( isset( $options['dry_run'] ) ) {    // dry_run directive given
                       echo "Dry run for database insert\n";
                     }
@@ -217,7 +198,6 @@
           }
           fclose($f);                       // Close input csv file
       
-          //if ($options['dry_run'] === NULL) {
           if ( !isset( $options['dry_run'] ) ) {
             // If not a dry run
             // Check if you can read from database before dropping it
